@@ -60,6 +60,6 @@ jobs:
         uses: Charlyzzz/update-k8s-image
         with:
           manifest-path: manifests/deployment.yaml
-          new-image-tag: ${{ steps.increment_version.outputs.updated_version }}
+          new-image-tag: 1.1.1
           name: backend
 
