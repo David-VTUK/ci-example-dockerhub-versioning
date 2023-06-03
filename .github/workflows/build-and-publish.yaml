@@ -33,7 +33,6 @@ jobs:
       - name: Retrieve latest Docker image version
         id: get_version
         run: |
-          echo "::set-output name=image_version::$(curl -s https://hub.docker.com/repository/docker/virtualthoughts/demo-app/tags | jq -r '.[].name' | grep -v latest | sort -V | tail -n 1)"
           echo "::set-output name=image_version::$(curl -s "https://registry.hub.docker.com/v2/repositories/virtualthoughts/demo-app/tags/" | jq -r '.results[].name' | grep -v latest | sort -V | tail -n 1)"
 
       - name: Increment version
@@ -54,5 +53,5 @@ jobs:
           context: .
           push: true
           tags: | 
-            virtualthoughts/demo-app:0.0.1
+            virtualthoughts/demo-app:${{ steps.increment_version.outputs.updated_version }}
             virtualthoughts/demo-app:latest
