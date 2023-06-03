@@ -56,10 +56,4 @@ jobs:
             virtualthoughts/demo-app:${{ steps.increment_version.outputs.updated_version }}
             virtualthoughts/demo-app:latest
 
-      - name: Update YAML
-        uses: Charlyzzz/update-k8s-image
-        with:
-          manifest-path: manifests/deployment.yaml
-          new-image-tag: ${{ steps.increment_version.outputs.updated_version }}
-          container-name: backend
 
