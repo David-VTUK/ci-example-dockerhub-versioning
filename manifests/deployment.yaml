@@ -12,10 +12,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: my-registry/backend:1.0
+          image: virtualthoughts/demo-app:latest
           ports:
             - containerPort: 80
-        - name: sidecar
-          image: sidecar:2.0
-          ports:
-            - containerPort: 9999
