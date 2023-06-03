@@ -62,3 +62,4 @@ jobs:
           manifest-path: manifests/deployment.yaml
           new-image-tag: ${{ steps.increment_version.outputs.updated_version }}
           name: backend
+
