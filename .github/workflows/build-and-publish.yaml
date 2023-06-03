@@ -53,6 +53,6 @@ jobs:
         with:
           context: .
           push: true
-          labels: | 
+          tags: | 
             virtualthoughts/demo-app:0.0.1
             virtualthoughts/demo-app:latest
