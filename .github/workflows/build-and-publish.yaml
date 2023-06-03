@@ -56,4 +56,16 @@ jobs:
             virtualthoughts/demo-app:${{ steps.increment_version.outputs.updated_version }}
             virtualthoughts/demo-app:latest
 
-
+      - name: Update Kubernetes YAML manifest
+        run: |
+          # Install yq
+          curl -sL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o yq
+          chmod +x yq
+          sudo mv yq /usr/local/bin/
+          
+          # Find and update the image tag in the YAML file
+          IMAGE_NAME="virtualthoughts/demo-app"
+          NEW_TAG="${{ steps.increment_version.outputs.updated_version }}"
+          OLD_TAG=$(yq eval '.spec.template.spec.containers[0].image' manifests/deployment.yaml | cut -d":" -f2)
+          NEW_IMAGE="${IMAGE_NAME}:${NEW_TAG}"
+          sed -i "s|${IMAGE_NAME}:${OLD_TAG}|${NEW_IMAGE}|" manifests/deployment.yaml
