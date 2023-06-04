@@ -33,13 +33,13 @@ jobs:
       - name: Retrieve latest Docker image version
         id: get_version
         run: |
-          echo "::set-output name=image_version::$(curl -s "https://registry.hub.docker.com/v2/repositories/virtualthoughts/demo-app/tags/" | jq -r '.results[].name' | grep -v latest | sort -V | tail -n 1)"
+          echo "image_version=$(curl -s "https://registry.hub.docker.com/v2/repositories/virtualthoughts/demo-app/tags/" | jq -r '.results[].name' | grep -v latest | sort -V | tail -n 1)" >> $GITHUB_OUTPUT
 
       - name: Increment version
         id: increment_version
         run: |
           # Increment the retrieved version
-          echo "::set-output name=updated_version::$(echo "${{ steps.get_version.outputs.image_version }}" | awk -F. -v OFS=. '{$NF++;print}')"
+          echo "updated_version=$(echo "${{ steps.get_version.outputs.image_version }}" | awk -F. -v OFS=. '{$NF++;print}')" >> $GITHUB_OUTPUT
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
