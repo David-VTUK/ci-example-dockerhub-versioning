@@ -71,8 +71,6 @@ jobs:
           sed -i "s|${IMAGE_NAME}:${OLD_TAG}|${NEW_IMAGE}|" manifests/deployment.yaml
 
       - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
